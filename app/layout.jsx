@@ -13,7 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter} antialiased bg-zinc-950 min-h-screen`}>
+      <body
+        className={`${inter} antialiased bg-zinc-100 min-h-screen overflow-hidden`}
+      >
         <Provider>
           <Navbar />
           {children}

@@ -3,7 +3,7 @@ import Logo from "./logo";
 
 function Navbar() {
   return (
-    <div className="border-b-[0.5px]  border-zinc-800 p-6">
+    <div className="absolute top-0 w-full p-6 z-50">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <Logo />
         <Link href="/">
