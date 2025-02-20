@@ -7,7 +7,7 @@ export default function HeroSection() {
     <section className="grid grid-cols-1 md:grid-cols-2 h-screen w-full ">
       <div className="hidden md:block relative h-[98%] ml-2 my-auto w-full ">
         <Image
-          src="/hero4.jpg"
+          src="/hero.jpg"
           fill
           alt="hero-img"
           className="object-cover rounded-md"
