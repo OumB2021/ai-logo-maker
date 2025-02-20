@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter} antialiased bg-zinc-100 min-h-screen `}>
         <Provider>
           <Navbar className={true} />
-          {children}
+          <div className="px-10">{children}</div>
         </Provider>
       </body>
     </html>

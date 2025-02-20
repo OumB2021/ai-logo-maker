@@ -6,5 +6,5 @@
     "checkJs": true,
     "jsx": "react-jsx"
   },
-  "exclude": ["node_modules", "coverage", "dist", "/*.js"]
+  "exclude": ["node_modules", "coverage", "dist", "components", "/*.js"]
 }
