@@ -14,7 +14,7 @@ function InputBar({ onHandleInputChange }) {
         defaultValue={logoTitle ? logoTitle : ""}
         onChange={() => {}}
         placeholder="Enter your logo name"
-        className="flex-1 w-full text-base md:text-lg rounded-md placeholder:text-base border border-[2px]-input bg-transparent px-3 py-4  transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 "
+        className="placeholder:text-zinc-400 flex-1 w-full text-base md:text-lg rounded-md placeholder:text-base border border-[2px]-input bg-transparent px-3 py-4  transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 "
       />
     </form>
   );

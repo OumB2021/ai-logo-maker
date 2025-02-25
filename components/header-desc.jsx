@@ -4,7 +4,7 @@ function HeaderDesc({ title, description }) {
       <h1 className="text-3xl md:text-4xl font-bold text-purple-500">
         {title}
       </h1>
-      <p className="text-base md:text-lg text-muted-foreground text-center">
+      <p className="text-base md:text-lg text-zinc-800 text-center">
         {description}
       </p>
     </div>

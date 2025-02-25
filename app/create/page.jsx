@@ -2,13 +2,14 @@
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import HeaderDesc from "@/components/header-desc";
-import InputField from "@/components/input-field";
+
 import BackPage from "./_components/back-page";
-import LogoDescription from "./_components/logo-description";
-import ColorPalette from "./_components/color-palette";
-import LogoDesign from "./_components/logo-design";
 import LogoIdea from "./_components/logo-idea";
+import DescriptionStep from "./_components/description-step";
+import InputStep from "./_components/Input-step";
+import ColorStep from "./_components/color-step";
+import DesignStep from "./_components/design-step";
+import IdeaStep from "./_components/idea-step";
 
 function CreateLogo() {
   const [step, setStep] = useState(1);
@@ -26,25 +27,32 @@ function CreateLogo() {
       <BackPage />
 
       <div className="flex flex-col items-center gap-4 w-full bg-zinc-50/50 border-zinc-200/50 border-[1px] rounded-lg py-10 px-10 shadow-sm">
-        <HeaderDesc
-          title="Logo Title"
-          description="Enter your brand name to create a custom, AI-generated logo."
-        />
-
         {step === 1 ? (
-          <InputField onHandleInputChange={onHandleInputChange} />
+          <InputStep
+            onHandleInputChange={(v) => onHandleInputChange("title", v)}
+          />
         ) : step === 2 ? (
-          <LogoDescription />
+          <DescriptionStep
+            onHandleInputChange={(v) => onHandleInputChange("desc", v)}
+          />
         ) : step === 3 ? (
-          <ColorPalette />
+          <ColorStep
+            onHandleInputChange={(v) => onHandleInputChange("palette", v)}
+          />
         ) : step === 4 ? (
-          <LogoDesign />
+          <DesignStep
+            onHandleInputChange={(v) => onHandleInputChange("design", v)}
+          />
         ) : (
-          step === 5 && <LogoIdea />
+          step === 5 && (
+            <IdeaStep
+              onHandleInputChange={(v) => onHandleInputChange("idea", v)}
+            />
+          )
         )}
 
         {/* Continue button */}
-        <div className="flex justify-between items-center w-full">
+        <div className="flex md:justify-between justify-center items-center w-full gap-4">
           <button
             disabled={step === 1}
             onClick={() => setStep(step - 1)}
@@ -55,7 +63,7 @@ function CreateLogo() {
             }`}
           >
             <ArrowLeft size={20} />
-            <span>Previous</span>
+            <span className="text-sm md:text-base">Previous</span>
           </button>
 
           <button
@@ -68,7 +76,7 @@ function CreateLogo() {
             }`}
           >
             <ArrowRight size={20} />
-            <span>Continue</span>
+            <span className="text-sm md:text-base">Continue</span>
           </button>
         </div>
       </div>
