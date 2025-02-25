@@ -1,5 +1,6 @@
-import { ArrowBigLeft, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import HeaderDesc from "../../components/header-desc";
+import InputField from "../../components/input-field";
 import Link from "next/link";
 
 function CreateLogo({ search }) {
@@ -13,10 +14,12 @@ function CreateLogo({ search }) {
         <span>Back</span>
       </Link>
 
-      <div className="flex flex-col items-center gap-4 w-full bg-zinc-50/50 border-zinc-200/50 border-[1px] rounded-lg py-20 px-10 shadow-sm">
+      <div className="flex flex-col items-center gap-4 w-full bg-zinc-50/50 border-zinc-200/50 border-[1px] rounded-lg py-10 px-10 shadow-sm">
         <HeaderDesc title="Logo Title" description="title" />
-        <button>
+        <InputField />
+        <button className="mt-10 flex items-center gap-2 bg-purple-500 md:self-end  md:size-fit text-zinc-50 border-zinc-200 border-[1px] rounded-xl p-3 hover:bg-purple-700 ">
           <ArrowRight size={20} />
+          <span>Continue</span>
         </button>
       </div>
     </div>
