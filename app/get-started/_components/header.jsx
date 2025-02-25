@@ -3,7 +3,9 @@ import Link from "next/link";
 function Header() {
   return (
     <div className="flex flex-col items-center gap-4">
-      <h1 className="text-6xl font-bold">Ai Logo Maker</h1>
+      <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold">
+        Ai Logo Maker
+      </h1>
       <p className="text-base text-zinc-500 max-w-2xl text-center">
         Start your new venture on the right foot with{" "}
         <strong className="text-purple-500">LogoPilot</strong> powered by{" "}
