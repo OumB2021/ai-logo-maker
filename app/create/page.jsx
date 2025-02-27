@@ -13,12 +13,14 @@ import IdeaStep from "./_components/idea-step";
 
 function CreateLogo() {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({});
   const onHandleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
+
+    console.log(formData);
   };
 
   console.log(step);
