@@ -29,7 +29,7 @@ function CreateLogo() {
   }, [formData]); //
 
   return (
-    <div className="flex flex-col items-center mt-32 min-h-screen gap-6 w-full px-10 md:px-6 lg:px-4 xl:px-0 max-w-7xl mx-auto">
+    <div className="flex flex-col items-center mt-32 min-h-screen gap-6 w-full px-10 md:px-6 lg:px-4 xl:px-0 max-w-7xl mx-auto mb-10">
       <BackPage />
 
       <div className="flex flex-col items-center gap-4 w-full bg-zinc-50/50 border-zinc-200/50 border-[1px] rounded-lg py-10 px-10 shadow-sm">
@@ -65,7 +65,7 @@ function CreateLogo() {
             className={`mt-10 flex items-center gap-2 md:self-end md:size-fit rounded-xl p-3 transition ${
               step === 1
                 ? "bg-zinc-400 cursor-not-allowed text-zinc-300"
-                : "bg-purple-500 hover:bg-purple-700 text-zinc-50"
+                : "bg-zinc-800 hover:bg-zinc-900 text-zinc-50"
             }`}
           >
             <ArrowLeft size={20} />
@@ -78,7 +78,7 @@ function CreateLogo() {
             className={`mt-10 flex items-center gap-2 md:self-end md:size-fit rounded-xl p-3 transition ${
               step === 5
                 ? "bg-zinc-400 cursor-not-allowed text-zinc-300"
-                : "bg-purple-500 hover:bg-purple-700 text-zinc-50"
+                : "bg-zinc-800 hover:bg-zinc-900 text-zinc-50"
             }`}
           >
             <ArrowRight size={20} />

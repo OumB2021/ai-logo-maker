@@ -7,8 +7,10 @@ function SingleColor({
   return (
     <div
       className={`flex flex-col items-center shadow-sm rounded-lg overflow-hidden border ${
-        selectedOption === palette.name ? "border-zinc-800" : "border-zinc-200"
-      }  hover:cursor-pointer`}
+        selectedOption === palette.name
+          ? "border-zinc-800 border-2"
+          : "border-zinc-200"
+      }  hover:cursor-pointer hover:border-zinc-800`}
       onClick={() => {
         setSelectedOption(palette.name);
         onHandleInputChange(palette.name);

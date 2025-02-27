@@ -9,9 +9,7 @@ function DesignStep({ onHandleInputChange }) {
         description="Do you prefer a sleek modern look, a playful cartoon style, or something realistic? Choose a design style that fits your brand personality."
       />
 
-      <LogoDesign
-        onHandleInputChange={(v) => onHandleInputChange("title", v)}
-      />
+      <LogoDesign onHandleInputChange={onHandleInputChange} />
     </>
   );
 }
