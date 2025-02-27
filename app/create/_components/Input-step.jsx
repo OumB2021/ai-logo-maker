@@ -9,9 +9,7 @@ function InputStep({ onHandleInputChange }) {
         description="Enter your brand name to create a custom, AI-generated logo."
       />
 
-      <InputField
-        onHandleInputChange={(v) => onHandleInputChange("title", v)}
-      />
+      <InputField onHandleInputChange={onHandleInputChange} />
     </>
   );
 }

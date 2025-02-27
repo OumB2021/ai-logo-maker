@@ -9,9 +9,7 @@ function ColorStep({ onHandleInputChange }) {
         description="Colors influence emotions and brand perception. Choose a color palette that aligns with your brand's identity and message."
       />
 
-      <ColorPalette
-        onHandleInputChange={(v) => onHandleInputChange("title", v)}
-      />
+      <ColorPalette onHandleInputChange={onHandleInputChange} />
     </>
   );
 }

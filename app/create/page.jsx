@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import BackPage from "./_components/back-page";
 import LogoIdea from "./_components/logo-idea";
@@ -23,7 +23,11 @@ function CreateLogo() {
     console.log(formData);
   };
 
-  console.log(step);
+  // Log formData whenever it updates
+  useEffect(() => {
+    console.log("Updated formData:", formData);
+  }, [formData]); //
+
   return (
     <div className="flex flex-col items-center mt-32 min-h-screen gap-6 w-full px-10 md:px-6 lg:px-4 xl:px-0 max-w-7xl mx-auto">
       <BackPage />
