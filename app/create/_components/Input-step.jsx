@@ -1,7 +1,7 @@
 import HeaderDesc from "@/components/header-desc";
 import InputField from "@/components/input-field";
 
-function InputStep({ onHandleInputChange }) {
+function InputStep({ onHandleInputChange, formData }) {
   return (
     <>
       <HeaderDesc

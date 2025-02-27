@@ -15,7 +15,7 @@ function SingleDesign({
       }  hover:cursor-pointer hover:border-zinc-800`}
       onClick={() => {
         setSelectedOption(design.title);
-        onHandleInputChange(design.title);
+        onHandleInputChange(design);
       }}
     >
       <div className="relative h-[200px] w-full bg-red-400">

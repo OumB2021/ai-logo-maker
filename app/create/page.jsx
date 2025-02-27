@@ -36,23 +36,28 @@ function CreateLogo() {
         {step === 1 ? (
           <InputStep
             onHandleInputChange={(v) => onHandleInputChange("title", v)}
+            formData={formData}
           />
         ) : step === 2 ? (
           <DescriptionStep
             onHandleInputChange={(v) => onHandleInputChange("desc", v)}
+            formData={formData}
           />
         ) : step === 3 ? (
           <ColorStep
             onHandleInputChange={(v) => onHandleInputChange("palette", v)}
+            formData={formData}
           />
         ) : step === 4 ? (
           <DesignStep
             onHandleInputChange={(v) => onHandleInputChange("design", v)}
+            formData={formData}
           />
         ) : (
           step === 5 && (
             <IdeaStep
               onHandleInputChange={(v) => onHandleInputChange("idea", v)}
+              formData={formData}
             />
           )
         )}

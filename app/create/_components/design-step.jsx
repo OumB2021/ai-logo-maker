@@ -1,7 +1,7 @@
 import HeaderDesc from "@/components/header-desc";
 import LogoDesign from "./logo-design";
 
-function DesignStep({ onHandleInputChange }) {
+function DesignStep({ onHandleInputChange, formData }) {
   return (
     <>
       <HeaderDesc
@@ -9,7 +9,10 @@ function DesignStep({ onHandleInputChange }) {
         description="Do you prefer a sleek modern look, a playful cartoon style, or something realistic? Choose a design style that fits your brand personality."
       />
 
-      <LogoDesign onHandleInputChange={onHandleInputChange} />
+      <LogoDesign
+        onHandleInputChange={onHandleInputChange}
+        formData={formData}
+      />
     </>
   );
 }

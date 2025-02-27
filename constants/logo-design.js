@@ -36,5 +36,3 @@ export const logoDesign = [
       "A striking and professional black and white logo with high contrast, clean lines, and a timeless, sophisticated aesthetic.",
   },
 ];
-
-console.log(logoDesign);

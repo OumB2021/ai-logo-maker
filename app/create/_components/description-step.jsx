@@ -1,8 +1,8 @@
 import HeaderDesc from "@/components/header-desc";
 import { useState } from "react";
 
-function DescriptionStep({ onHandleInputChange }) {
-  const [desc, setDesc] = useState("");
+function DescriptionStep({ onHandleInputChange, formData }) {
+  const [desc, setDesc] = useState(formData.desc);
 
   return (
     <>
