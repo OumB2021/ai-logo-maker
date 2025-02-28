@@ -4,16 +4,21 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import BackPage from "./_components/back-page";
-import LogoIdea from "./_components/logo-idea";
 import DescriptionStep from "./_components/description-step";
 import InputStep from "./_components/Input-step";
 import ColorStep from "./_components/color-step";
 import DesignStep from "./_components/design-step";
 import IdeaStep from "./_components/idea-step";
+import { useSearchParams } from "next/navigation";
+import PriceStep from "./_components/price-step";
 
 function CreateLogo() {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const searchParams = useSearchParams();
+  const searchTitle = searchParams.get("title") || "";
+  const [formData, setFormData] = useState({
+    title: searchTitle,
+  });
   const onHandleInputChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -53,13 +58,13 @@ function CreateLogo() {
             onHandleInputChange={(v) => onHandleInputChange("design", v)}
             formData={formData}
           />
+        ) : step === 5 ? (
+          <IdeaStep
+            onHandleInputChange={(v) => onHandleInputChange("idea", v)}
+            formData={formData}
+          />
         ) : (
-          step === 5 && (
-            <IdeaStep
-              onHandleInputChange={(v) => onHandleInputChange("idea", v)}
-              formData={formData}
-            />
-          )
+          step === 6 && <PriceStep />
         )}
 
         {/* Continue button */}
@@ -79,9 +84,9 @@ function CreateLogo() {
 
           <button
             onClick={() => setStep(step + 1)}
-            disabled={step === 5}
+            disabled={step === 6}
             className={`mt-10 flex items-center gap-2 md:self-end md:size-fit rounded-xl p-3 transition ${
-              step === 5
+              step === 6
                 ? "bg-zinc-400 cursor-not-allowed text-zinc-300"
                 : "bg-zinc-800 hover:bg-zinc-900 text-zinc-50"
             }`}

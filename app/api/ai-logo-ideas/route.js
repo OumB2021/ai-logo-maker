@@ -8,6 +8,8 @@ export async function POST(req) {
       });
     }
 
+    console.log(prompt);
+
     // Mock AI response - Replace this with your AI generation logic
     const generatedIdeas = [
       "Happy logo with gear",

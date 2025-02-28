@@ -21,11 +21,8 @@ function LogoIdea({ onHandleInputChange, formData }) {
       formData?.design?.title || "generic logo"
     )
       .replace(`{logoTitle}`, formData?.title || "brand")
-      .replace(
-        `{logoDescription}`,
-        formData?.description || "No description provided"
-      )
-      .replace(`{logoPrompt}`, formData?.design.prompt || "create and unique");
+      .replace(`{logoDescription}`, formData?.desc || "No description provided")
+      .replace(`{logoPrompt}`, formData?.design?.prompt || "create and unique");
 
     try {
       const response = await fetch(`/api/ai-logo-ideas`, {

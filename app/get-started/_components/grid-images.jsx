@@ -7,8 +7,8 @@ function GridImages() {
         Generate 100% Orginal Logo Graphics with Ai
       </h2>
       <div className="flex flex-wrap lg:gap-10 md:gap-6 gap-3 p-4 justify-center">
-        {[...Array(8)].map((_, index) => (
-          <SingleImage key={index} />
+        {[...Array(12)].map((_, index) => (
+          <SingleImage key={index} image={index + 1} />
         ))}
       </div>
     </div>

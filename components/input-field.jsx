@@ -3,15 +3,13 @@
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-function InputBar({ onHandleInputChange }) {
-  const searchParams = useSearchParams();
-  const search = searchParams.get("title");
-  const [logoTitle, setLogoTile] = useState(search);
+function InputBar({ onHandleInputChange, formData }) {
+  const [logoTitle, setLogoTile] = useState(formData.title || "");
   return (
     <form className="mt-4 flex items-center gap-3 w-full">
       <input
         type="text"
-        defaultValue={logoTitle || ""}
+        value={logoTitle || ""}
         onChange={(e) => {
           setLogoTile(e.target.value);
           onHandleInputChange(e.target.value);
