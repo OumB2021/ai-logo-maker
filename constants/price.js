@@ -12,13 +12,13 @@ export const pricingPlans = [
       "No commercial usage rights",
       "Community support",
     ],
-    buttonText: "Generate for Free",
+    buttonText: "Get Started",
     buttonColor: "bg-zinc-800 hover:bg-zinc-800", // Tailwind classes
     recommended: false,
   },
   {
     title: "Premium",
-    price: "$2.99/month",
+    price: "$2.99",
     description:
       "Ideal for professionals and businesses looking for high-quality and fast logo generation.",
     features: [
@@ -30,7 +30,7 @@ export const pricingPlans = [
       "Priority customer support",
       "Access to upcoming AI design tools",
     ],
-    buttonText: "Subscribe for $2.99/month",
+    buttonText: "Get Started",
     buttonColor: "bg-purple-500 hover:bg-purple-600", // Tailwind classes
     recommended: true,
   },

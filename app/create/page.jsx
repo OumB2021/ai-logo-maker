@@ -37,7 +37,7 @@ function CreateLogo() {
     <div className="flex flex-col items-center mt-32 min-h-screen gap-6 w-full px-10 md:px-6 lg:px-4 xl:px-0 max-w-7xl mx-auto mb-10">
       <BackPage />
 
-      <div className="flex flex-col items-center gap-4 w-full bg-zinc-50/50 border-zinc-200/50 border-[1px] rounded-lg py-10 px-10 shadow-sm">
+      <div className="flex flex-col items-center gap-4 w-full bg-zinc-50/50 border-zinc-200/50 border-[1px] rounded-lg py-10 px-5 md:px-10 shadow-sm">
         {step === 1 ? (
           <InputStep
             onHandleInputChange={(v) => onHandleInputChange("title", v)}
@@ -84,8 +84,9 @@ function CreateLogo() {
 
           <button
             onClick={() => setStep(step + 1)}
-            disabled={step === 6}
-            className={`mt-10 flex items-center gap-2 md:self-end md:size-fit rounded-xl p-3 transition ${
+            className={`${
+              step === 6 && "hidden"
+            } mt-10 flex items-center gap-2 md:self-end md:size-fit rounded-xl p-3 transition ${
               step === 6
                 ? "bg-zinc-400 cursor-not-allowed text-zinc-300"
                 : "bg-zinc-800 hover:bg-zinc-900 text-zinc-50"
