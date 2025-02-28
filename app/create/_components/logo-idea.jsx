@@ -44,7 +44,7 @@ function LogoIdea({ onHandleInputChange, formData }) {
 
   const handleSelect = (idea) => {
     setSelectedOption(idea);
-    onHandleInputChange("idea", idea); // Update parent formData
+    onHandleInputChange(idea);
   };
 
   return (

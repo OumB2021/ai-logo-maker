@@ -1,7 +1,7 @@
 import HeaderDesc from "@/components/header-desc";
 import PriceOptions from "./price-options";
 
-function PriceStep() {
+function PriceStep({ onHandleInputChange, formData }) {
   return (
     <>
       <HeaderDesc
@@ -9,7 +9,10 @@ function PriceStep() {
         description="Enter your brand name to create a custom, AI-generated logo."
       />
 
-      <PriceOptions />
+      <PriceOptions
+        onHandleInputChange={onHandleInputChange}
+        formData={formData}
+      />
     </>
   );
 }

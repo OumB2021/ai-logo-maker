@@ -10,10 +10,7 @@ function IdeaStep({ onHandleInputChange, formData }) {
         description="Choose your favorite design style that aligns with your vision, or skip to receive a random suggestion."
       />
 
-      <LogoIdea
-        onHandleInputChange={(v) => onHandleInputChange("title", v)}
-        formData={formData}
-      />
+      <LogoIdea onHandleInputChange={onHandleInputChange} formData={formData} />
     </>
   );
 }

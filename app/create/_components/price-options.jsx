@@ -1,7 +1,14 @@
+"use client";
 import { pricingPlans } from "@/constants/price";
 import { BadgeCheck } from "lucide-react";
+import { useEffect } from "react";
 
-function PriceOptions() {
+function PriceOptions({ onHandleInputChange, formData }) {
+  useEffect(() => {
+    if (formData?.title && typeof window !== "undefined") {
+      localStorage.setItem("formData", JSON.stringify(formData));
+    }
+  }, [formData]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {pricingPlans.map((plan, index) => (

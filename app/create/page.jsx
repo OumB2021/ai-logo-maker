@@ -64,7 +64,12 @@ function CreateLogo() {
             formData={formData}
           />
         ) : (
-          step === 6 && <PriceStep />
+          step === 6 && (
+            <PriceStep
+              onHandleInputChange={(v) => onHandleInputChange("price", v)}
+              formData={formData}
+            />
+          )
         )}
 
         {/* Continue button */}
