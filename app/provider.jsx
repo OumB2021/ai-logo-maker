@@ -2,11 +2,12 @@
 
 import NavRender from "@/components/navbar/nav-render";
 import { useUser } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { UserDetailContext } from "./_context/user-detail-context";
 
 function Provider({ children }) {
   const { user, isLoaded } = useUser();
-
+  const [userDetails, setUserDetails] = useState(user);
   useEffect(() => {
     if (isLoaded && user) {
       checkUserAuth();
@@ -30,12 +31,14 @@ function Provider({ children }) {
     }
 
     const data = await result.json();
-    console.log("API Response:", data);
+    setUserDetails(data);
   };
   return (
     <>
-      <NavRender />
-      <div className="">{children}</div>
+      <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
+        <NavRender />
+        <div className="">{children}</div>
+      </UserDetailContext.Provider>
     </>
   );
 }
