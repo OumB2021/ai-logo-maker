@@ -1,9 +1,13 @@
 "use client";
 import { pricingPlans } from "@/constants/price";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { BadgeCheck } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 function PriceOptions({ onHandleInputChange, formData }) {
+  const router = useRouter();
+  const { user } = useUser();
   useEffect(() => {
     if (formData?.title && typeof window !== "undefined") {
       localStorage.setItem("formData", JSON.stringify(formData));
@@ -40,13 +44,35 @@ function PriceOptions({ onHandleInputChange, formData }) {
             </ul>
           </div>
 
-          <button
-            className={`mt-6 w-full py-2 ${
-              plan.recommended ? "bg-zinc-900" : "bg-zinc-700 hover:bg-zinc-600"
-            }  text-zinc-50 font-semibold rounded-lg transition`}
-          >
-            {plan.buttonText}
-          </button>
+          {user ? (
+            <button
+              onClick={() => {
+                router.push(`/generate-logo?type=${plan.title}`);
+              }}
+              className={`mt-6 w-full py-2 ${
+                plan.recommended
+                  ? "bg-zinc-900"
+                  : "bg-zinc-700 hover:bg-zinc-600"
+              }  text-zinc-50 font-semibold rounded-lg transition`}
+            >
+              {plan.buttonText}
+            </button>
+          ) : (
+            <SignInButton
+              mode="modal"
+              forceRedirectUrl={`/generate-logo?type=${plan.title}`}
+            >
+              <button
+                className={`mt-6 w-full py-2 ${
+                  plan.recommended
+                    ? "bg-zinc-900"
+                    : "bg-zinc-700 hover:bg-zinc-600"
+                }  text-zinc-50 font-semibold rounded-lg transition`}
+              >
+                {plan.buttonText}
+              </button>
+            </SignInButton>
+          )}
         </div>
       ))}
     </div>

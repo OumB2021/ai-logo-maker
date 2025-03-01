@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavRender from "@/components/navbar/nav-render";
 import { ClerkProvider } from "@clerk/nextjs";
+import Provider from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +18,7 @@ export default function RootLayout({ children }) {
         <body
           className={`${inter} antialiased bg-zinc-100 min-h-screen flex flex-col`}
         >
-          <NavRender />
-          <div className="">{children}</div>
+          <Provider children={children} />
         </body>
       </html>
     </ClerkProvider>
