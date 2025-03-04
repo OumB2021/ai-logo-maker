@@ -1,10 +1,10 @@
-import { db } from "@/firebase-config";
+import { db } from "@/config/firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const { userEmail, userName } = await req.json();
-  console.log(userEmail, userName);
+
   try {
     const docRef = doc(db, "users", userEmail);
     const docSnap = await getDoc(docRef);

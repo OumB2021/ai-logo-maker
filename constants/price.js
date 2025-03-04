@@ -1,7 +1,7 @@
 export const pricingPlans = [
   {
     title: "Free",
-    price: "$0",
+    price: "0 Credit",
     description:
       "Perfect for individuals who want to generate logos with basic design options.",
     features: [
@@ -18,7 +18,7 @@ export const pricingPlans = [
   },
   {
     title: "Premium",
-    price: "$2.99",
+    price: "1 Credit",
     description:
       "Ideal for professionals and businesses looking for high-quality and fast logo generation.",
     features: [

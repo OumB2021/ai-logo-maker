@@ -1,3 +1,6 @@
+import { model } from "@/config/gemini-config";
+import { cleanJsonString, extractJsonString } from "@/lib/utils";
+
 export async function POST(req) {
   try {
     const { prompt } = await req.json(); // Get the prompt from request body
@@ -8,22 +11,19 @@ export async function POST(req) {
       });
     }
 
-    console.log(prompt);
+    const result = await model.generateContent(prompt);
+    if (!result) {
+      return new Response(
+        JSON.stringify({ error: "Failed to generate content" }),
+        { status: 500 }
+      );
+    }
 
-    // Mock AI response - Replace this with your AI generation logic
-    const generatedIdeas = [
-      "Happy logo with gear",
-      "Friendly cloud with rain",
-      "Minimalist sun with a smile",
-      "Bold lightning bolt mascot",
-      "Playful panda with glasses",
-      "Sleek futuristic owl",
-      "Vibrant fireball icon",
-      "Retro-inspired rocket",
-      "Elegant floral typography",
-    ];
+    const responseText = await result.response.text();
 
-    return new Response(JSON.stringify({ ideas: generatedIdeas }), {
+    const extractedJson = extractJsonString(responseText);
+    const parsedIdeas = JSON.parse(extractedJson);
+    return new Response(JSON.stringify({ ideas: parsedIdeas }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

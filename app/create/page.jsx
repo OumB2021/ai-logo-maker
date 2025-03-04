@@ -24,8 +24,6 @@ function CreateLogo() {
       ...prev,
       [field]: value,
     }));
-
-    console.log(formData);
   };
 
   // Log formData whenever it updates

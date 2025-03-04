@@ -2,6 +2,7 @@
 import { pricingPlans } from "@/constants/price";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { BadgeCheck } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -32,7 +33,6 @@ function PriceOptions({ onHandleInputChange, formData }) {
               )}
             </div>
             <p className="text-4xl font-bold mt-2">{plan.price}</p>
-            <p className="text-sm text-zinc-800">Per month/user</p>
             <p className="text-zinc-600 font-medium mt-4">{plan.description}</p>
             <ul className="mt-4 space-y-3 text-sm md:text-base text-muted-foreground">
               {plan.features.map((feature, i) => (
@@ -45,18 +45,17 @@ function PriceOptions({ onHandleInputChange, formData }) {
           </div>
 
           {user ? (
-            <button
-              onClick={() => {
-                router.push(`/generate-logo?type=${plan.title}`);
-              }}
-              className={`mt-6 w-full py-2 ${
-                plan.recommended
-                  ? "bg-zinc-900"
-                  : "bg-zinc-700 hover:bg-zinc-600"
-              }  text-zinc-50 font-semibold rounded-lg transition`}
-            >
-              {plan.buttonText}
-            </button>
+            <Link href={`/generate-logo?type=${plan.title}`}>
+              <button
+                className={`mt-6 w-full py-2 ${
+                  plan.recommended
+                    ? "bg-zinc-900"
+                    : "bg-zinc-700 hover:bg-zinc-600"
+                }  text-zinc-50 font-semibold rounded-lg transition`}
+              >
+                {plan.buttonText}
+              </button>
+            </Link>
           ) : (
             <SignInButton
               mode="modal"

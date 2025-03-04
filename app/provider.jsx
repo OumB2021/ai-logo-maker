@@ -7,10 +7,11 @@ import { UserDetailContext } from "./_context/user-detail-context";
 
 function Provider({ children }) {
   const { user, isLoaded } = useUser();
-  const [userDetails, setUserDetails] = useState(user);
+  const [userDetails, setUserDetails] = useState(null);
   useEffect(() => {
     if (isLoaded && user) {
       checkUserAuth();
+      setUserDetails(user);
     }
   }, [isLoaded, user]);
 
@@ -33,6 +34,7 @@ function Provider({ children }) {
     const data = await result.json();
     setUserDetails(data);
   };
+
   return (
     <>
       <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>

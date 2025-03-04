@@ -19,7 +19,7 @@ function DescriptionStep({ onHandleInputChange, formData }) {
             setDesc(e.target.value);
             onHandleInputChange(e.target.value);
           }}
-          placeholder="Enter your logo name"
+          placeholder="Enter your brand description"
           className="placeholder:text-zinc-400 flex-1 w-full text-base md:text-lg rounded-md placeholder:text-base border border-[2px]-input bg-transparent px-3 py-4  transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 "
         />
       </form>
