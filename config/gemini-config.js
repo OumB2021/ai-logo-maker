@@ -18,7 +18,7 @@ export const chat = model.startChat({
   ],
 });
 
-// export const chat = model.startChat({
+// export const AILogoPrompt = model.startChat({
 //   history: [
 //     {
 //       role: "user",

@@ -7,6 +7,7 @@ import Prompt from "@/constants/prompt";
 function page() {
   const { userDetails, setUserDetails } = useContext(UserDetailContext);
   const [formData, setFormData] = useState({});
+  const [logoGenerated, setLogoGenerated] = useState(false); // ✅ Prevent multiple API calls
 
   useEffect(() => {
     if (typeof window !== "undefined" && userDetails?.email) {
@@ -21,17 +22,18 @@ function page() {
       }
     }
 
-    genereAILogo();
+    GenerateAILogo();
   }, [userDetails]);
 
   useEffect(() => {
-    if (formData?.title) {
-      genereAILogo();
+    if (formData?.title && !logoGenerated) {
+      GenerateAILogo();
+      setLogoGenerated(true); // ✅ Prevents re-fetching
     }
   }, [formData]);
 
-  const genereAILogo = async () => {
-    if (!formData) return;
+  const GenerateAILogo = async () => {
+    if (!formData || !formData?.title) return;
 
     // @ts-ignore: Ignore TypeScript checking in JavaScript
     const PROMPT = Prompt.LOGO_PROMPT.replace("{logoTitle}", formData?.title)
@@ -48,7 +50,9 @@ function page() {
       body: JSON.stringify({ prompt: PROMPT }),
     });
 
-    console.log("prompt generated", response?.data);
+    const data = await response.json();
+    console.log("Prompt Generated:", data);
+
     // Generate logo image
   };
 
