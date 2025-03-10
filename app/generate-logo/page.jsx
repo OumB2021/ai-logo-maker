@@ -3,12 +3,15 @@
 import { useContext, useEffect, useState } from "react";
 import { UserDetailContext } from "../_context/user-detail-context";
 import Prompt from "@/constants/prompt";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 function page() {
   const { userDetails, setUserDetails } = useContext(UserDetailContext);
   const [formData, setFormData] = useState({});
   const [logoGenerated, setLogoGenerated] = useState(false); // ✅ Prevent multiple API calls
-
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState();
   useEffect(() => {
     if (typeof window !== "undefined" && userDetails?.email) {
       const store = localStorage.getItem(`formData`);
@@ -35,6 +38,7 @@ function page() {
   const GenerateAILogo = async () => {
     if (!formData || !formData?.title) return;
 
+    setLoading(true);
     // @ts-ignore: Ignore TypeScript checking in JavaScript
     const PROMPT = Prompt.LOGO_PROMPT.replace("{logoTitle}", formData?.title)
       .replace("{logoDesc}", formData?.desc)
@@ -47,18 +51,30 @@ function page() {
     const response = await fetch(`/api/ai-logo-model`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: PROMPT }),
+      body: JSON.stringify({
+        prompt: PROMPT,
+        email: userDetails?.email,
+        title: formData.title,
+        desc: formData.desc,
+      }),
     });
 
     const data = await response.json();
     console.log("Prompt Generated:", data);
+    setImage(data.image);
+    setLoading(false);
 
     // Generate logo image
   };
 
+  if (loading) {
+    return <Loader2 className="text-muted-foreground animate-spin" />;
+  }
   return (
     <div className="flex flex-col items-center mt-32 min-h-screen gap-4 w-full px-10">
-      page
+      <div>
+        <Image src={image} alt="logo image" width={200} height={200} />
+      </div>
     </div>
   );
 }

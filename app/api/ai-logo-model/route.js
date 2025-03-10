@@ -1,11 +1,13 @@
+import { db } from "@/config/firebase-config";
 import { AILogoPrompt, chat } from "@/config/gemini-config";
 import { extractJsonFromString } from "@/lib/utils";
+import { doc, setDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
     // ✅ Step 1: Extract the prompt from the request
-    const { prompt } = await req.json();
+    const { prompt, email, title, desc } = await req.json();
     if (!prompt) {
       throw new Error("Missing prompt in request body");
     }
@@ -14,7 +16,6 @@ export async function POST(req) {
     let AIPromptResult;
     try {
       AIPromptResult = await chat.sendMessage(prompt);
-      console.log("AI Response:", AIPromptResult.response.text());
     } catch (error) {
       throw new Error(`Gemini AI Error: ${error.message}`);
     }
@@ -29,8 +30,6 @@ export async function POST(req) {
     } catch (error) {
       throw new Error(`JSON Extraction Error: ${error.message}`);
     }
-
-    console.log("extracted json: " + extractedJson.prompt);
 
     // ✅ Step 4: Send request to Hugging Face API to generate the logo
     let response;
@@ -69,7 +68,14 @@ export async function POST(req) {
       throw new Error(`Error processing image data: ${error.message}`);
     }
 
-    console.log(imageWithMime);
+    // Save the image into database
+    try {
+      await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
+        image: imageWithMime,
+        title: title,
+        desc: desc,
+      });
+    } catch (error) {}
     // ✅ Step 6: Return the image URL or base64-encoded image
     return NextResponse.json({ image: imageWithMime });
   } catch (error) {
