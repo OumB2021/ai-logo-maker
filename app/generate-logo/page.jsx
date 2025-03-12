@@ -5,14 +5,19 @@ import { UserDetailContext } from "../_context/user-detail-context";
 import Prompt from "@/constants/prompt";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 function page() {
+  const searchParams = useSearchParams();
   const { userDetails, setUserDetails } = useContext(UserDetailContext);
   const [formData, setFormData] = useState({});
   const [logoGenerated, setLogoGenerated] = useState(false); // ✅ Prevent multiple API calls
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
+  const search = searchParams.get("type");
+
   useEffect(() => {
+    console.log("type: " + search);
     if (typeof window !== "undefined" && userDetails?.email) {
       const store = localStorage.getItem(`formData`);
       if (store) {
@@ -31,7 +36,7 @@ function page() {
   useEffect(() => {
     if (formData?.title && !logoGenerated) {
       GenerateAILogo();
-      setLogoGenerated(true); // ✅ Prevents re-fetching
+      setLogoGenerated(true);
     }
   }, [formData]);
 
@@ -48,32 +53,48 @@ function page() {
 
     // Generate logo prompt from ai
 
-    const response = await fetch(`/api/ai-logo-model`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prompt: PROMPT,
-        email: userDetails?.email,
-        title: formData.title,
-        desc: formData.desc,
-      }),
-    });
+    try {
+      const response = await fetch("/api/ai-logo-model", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: PROMPT,
+          email: userDetails?.email,
+          title: formData?.title,
+          desc: formData?.desc,
+          type: search,
+        }),
+      });
 
-    const data = await response.json();
-    console.log("Prompt Generated:", data);
-    setImage(data.image);
-    setLoading(false);
+      const data = await response.json();
+
+      if (data.image) {
+        setImage(data.image);
+      }
+    } catch (error) {
+      console.error("Error generating AI logo:", error);
+    } finally {
+      setLoading(false);
+    }
 
     // Generate logo image
   };
 
   if (loading) {
-    return <Loader2 className="text-muted-foreground animate-spin" />;
+    return (
+      <div className="flex flex-col items-center mt-32 min-h-screen gap-4 w-full px-10">
+        <Loader2 className="text-muted-foreground animate-spin" />
+      </div>
+    );
   }
   return (
     <div className="flex flex-col items-center mt-32 min-h-screen gap-4 w-full px-10">
       <div>
-        <Image src={image} alt="logo image" width={200} height={200} />
+        {image ? (
+          <Image src={image} alt="logo image" width={200} height={200} />
+        ) : (
+          <p className="text-zinc-500">No image generated yet.</p>
+        )}
       </div>
     </div>
   );
