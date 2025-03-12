@@ -6,3 +6,22 @@ const Prompt = {
 };
 
 export default Prompt;
+
+// response = await fetch(
+//   "https://router.huggingface.co/hf-inference/models/strangerzonehf/Flux-Midjourney-Mix2-LoRA",
+//   {
+//     headers: {
+//       Authorization: `Bearer ${process.env.MIDJOURNEY_HEADER_KEY}`,
+//       "Content-Type": "application/json",
+//     },
+//     method: "POST",
+//     body: JSON.stringify(extractedJson.prompt),
+//   }
+// );
+
+// if (!response.ok) {
+//   const errorBody = await response.text(); // Read error details if provided
+//   throw new Error(
+//     `Hugging Face API Error: ${response.status} ${response.statusText} - ${errorBody}`
+//   );
+// }
