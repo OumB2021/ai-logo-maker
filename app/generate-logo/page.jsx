@@ -42,7 +42,10 @@ function page() {
 
   const GenerateAILogo = async () => {
     if (!formData || !formData?.title) return;
-
+    if (search !== "Free" && userDetails?.credits <= 0) {
+      alert("You don't have enough credits to generate a logo!");
+      return;
+    }
     setLoading(true);
     // @ts-ignore: Ignore TypeScript checking in JavaScript
     const PROMPT = Prompt.LOGO_PROMPT.replace("{logoTitle}", formData?.title)
@@ -63,6 +66,7 @@ function page() {
           title: formData?.title,
           desc: formData?.desc,
           type: search,
+          userCredits: userDetails?.credits,
         }),
       });
 

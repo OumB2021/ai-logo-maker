@@ -3,6 +3,7 @@ import "./globals.css";
 import NavRender from "@/components/navbar/nav-render";
 import { ClerkProvider } from "@clerk/nextjs";
 import Provider from "./provider";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           className={`${inter} antialiased bg-zinc-100 min-h-screen flex flex-col`}
         >
           <Provider children={children} />
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

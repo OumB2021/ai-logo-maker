@@ -2,13 +2,13 @@ import { db } from "@/config/firebase-config";
 import { chat } from "@/config/gemini-config";
 import { replicate } from "@/config/replicate-config";
 import { extractJsonFromString } from "@/lib/utils";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
     // ✅ Step 1: Extract the prompt from the request
-    const { prompt, email, title, desc, type } = await req.json();
+    const { prompt, email, title, desc, type, userCredits } = await req.json();
     if (!prompt) {
       throw new Error("Missing prompt in request body");
     }
@@ -44,7 +44,11 @@ export async function POST(req) {
             Authorization: `Bearer ${process.env.CLOUDFARE_API_TOKEN}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ prompt: extractedJson.prompt }),
+          body: JSON.stringify({
+            prompt: extractedJson.prompt,
+            width: 512, // Reduce image width (default is 1024)
+            height: 512, // Reduce image height
+          }),
         });
 
         if (!response.ok) {
@@ -95,6 +99,11 @@ export async function POST(req) {
         const imageData = await imageResponse.arrayBuffer();
         const base64Image = Buffer.from(imageData).toString("base64");
         imageWithMime = `data:image/png;base64,${base64Image}`;
+
+        const docRef = doc(db, "users", email);
+        await updateDoc(docRef, {
+          credits: Number(userCredits - 1),
+        });
       } catch (error) {
         console.error(`Replicate API Request Failed: ${error.message}`);
         throw new Error(`Replicate API Request Failed: ${error.message}`);
@@ -103,16 +112,18 @@ export async function POST(req) {
       throw new Error("Invalid type specified");
     }
 
-    // try {
-    //   await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
-    //     image: imageWithMime,
-    //     title: title,
-    //     desc: desc,
-    //     timestamp: new Date().toISOString(),
-    //   });
-    // } catch (error) {
-    //   console.error("Error saving to Firestore:", error.message);
-    // }
+    try {
+      await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
+        image: imageWithMime,
+        title: title,
+        desc: desc,
+        timestamp: new Date().toISOString(),
+      });
+
+      console.log("✅ Image successfully updated in firestore");
+    } catch (error) {
+      console.error("Error saving to Firestore:", error.message);
+    }
 
     // ✅ Step 6: Return the image URL or base64-encoded image
     return NextResponse.json({ image: imageWithMime });
