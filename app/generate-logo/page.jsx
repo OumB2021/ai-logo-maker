@@ -3,9 +3,11 @@
 import { useContext, useEffect, useState } from "react";
 import { UserDetailContext } from "../_context/user-detail-context";
 import Prompt from "@/constants/prompt";
-import { Loader2 } from "lucide-react";
+import { Download, LayoutDashboard, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import Link from "next/link";
 
 function page() {
   const searchParams = useSearchParams();
@@ -33,17 +35,17 @@ function page() {
     GenerateAILogo();
   }, [userDetails]);
 
-  useEffect(() => {
-    if (formData?.title && !logoGenerated) {
-      GenerateAILogo();
-      setLogoGenerated(true);
-    }
-  }, [formData]);
+  // useEffect(() => {
+  //   if (formData?.title && !logoGenerated) {
+  //     GenerateAILogo();
+  //     setLogoGenerated(true);
+  //   }
+  // }, [formData]);
 
   const GenerateAILogo = async () => {
     if (!formData || !formData?.title) return;
     if (search !== "Free" && userDetails?.credits <= 0) {
-      alert("You don't have enough credits to generate a logo!");
+      toast.error("You don't have enough credits");
       return;
     }
     setLoading(true);
@@ -74,6 +76,7 @@ function page() {
 
       if (data.image) {
         setImage(data.image);
+        toast.success("Image generated successfully");
       }
     } catch (error) {
       console.error("Error generating AI logo:", error);
@@ -92,12 +95,38 @@ function page() {
     );
   }
   return (
-    <div className="flex flex-col items-center mt-32 min-h-screen gap-4 w-full px-10">
+    <div className="flex flex-col items-center mt-32 gap-4 w-full px-10 h-full justify-center">
       <div>
-        {image ? (
-          <Image src={image} alt="logo image" width={200} height={200} />
+        {true ? (
+          <div className="flex flex-col gap-y-10 items-center justify-center h-full p-10 border">
+            <h1 className="text-3xl font-bold ">Logo Preview</h1>
+            <Image
+              src={"/flower.jpg"}
+              alt="logo image"
+              width={300}
+              height={300}
+              className="rounded-md"
+            />
+            <div className="flex items-center justify-center gap-2">
+              <Link
+                href="/"
+                className="text-zinc-50 py-2 px-4 rounded-md bg-zinc-800 flex items-center gap-2 hover:bg-zinc-700"
+              >
+                <Download className="h-4 w-4" />
+                <span>Download</span>
+              </Link>
+              <button className="text-zinc-50 py-2 px-4 rounded-md bg-purple-500 flex items-center gap-2 hover:bg-purple-400">
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Download</span>
+              </button>
+            </div>
+          </div>
         ) : (
-          <p className="text-zinc-500">No image generated yet.</p>
+          <div className="flex flex-col h-full items-center justify-center">
+            <p className="text-muted-foreground text-lg">
+              No image generated yet.
+            </p>
+          </div>
         )}
       </div>
     </div>

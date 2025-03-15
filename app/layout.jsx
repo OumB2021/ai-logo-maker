@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           className={`${inter} antialiased bg-zinc-100 min-h-screen flex flex-col`}
         >
           <Provider children={children} />
-          <Toaster />
+          <Toaster position="bottom-right" />
         </body>
       </html>
     </ClerkProvider>

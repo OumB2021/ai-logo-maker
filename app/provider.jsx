@@ -4,6 +4,7 @@ import NavRender from "@/components/navbar/nav-render";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { UserDetailContext } from "./_context/user-detail-context";
+import Footer from "@/components/hero/footer";
 
 function Provider({ children }) {
   const { user, isLoaded } = useUser();
@@ -39,7 +40,8 @@ function Provider({ children }) {
     <>
       <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
         <NavRender />
-        <div className="">{children}</div>
+        <div className="min-h-screen">{children}</div>
+        <Footer />
       </UserDetailContext.Provider>
     </>
   );

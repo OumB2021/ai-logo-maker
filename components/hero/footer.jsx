@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="flex flex-col items-center justify-center gap-2 py-4 text-gray-600 text-sm">
+    <footer className="flex flex-col items-center justify-center gap-2 py-4 text-zinc-600 text-sm">
       {/* Social Icons */}
       <div className="flex items-center gap-4">
         <Link
