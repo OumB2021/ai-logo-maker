@@ -22,7 +22,7 @@ function Navbar({ className = false }) {
             <div className="flex items-center justify-center gap-4">
               <Link
                 href="/dashboard"
-                className="text-sm text-zinc-50 py-1 px-3 rounded-md bg-zinc-800"
+                className="text-base text-zinc-800 font-medium hover:underline"
               >
                 Dashboard
               </Link>
