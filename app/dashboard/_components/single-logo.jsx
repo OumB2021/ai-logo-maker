@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Eye, Download } from "lucide-react";
+import { Eye, Download, Trash, Trash2 } from "lucide-react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/config/firebase-config";
 
-function SingleLogo({ logo }) {
+function SingleLogo({ userDetails, logo }) {
   const [hovered, setHovered] = useState(false);
 
   const handleDownload = () => {
@@ -12,6 +14,15 @@ function SingleLogo({ logo }) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleDelete = async (logo, email) => {
+    try {
+      await deleteDoc(doc(db, "users", email, "logos", logo.id));
+      console.log("Logo deleted successfully");
+    } catch (error) {
+      console.error("Error deleting logo:", error);
+    }
   };
 
   return (
@@ -45,6 +56,13 @@ function SingleLogo({ logo }) {
             className=" p-2 rounded-full hover:scale-110 transition-transform"
           >
             <Download className="text-zinc-300 w- 5 h-5" strokeWidth={1.5} />
+          </button>
+
+          <button
+            onClick={() => handleDelete(logo, userDetails.email)}
+            className=" p-2 rounded-full hover:scale-110 transition-transform"
+          >
+            <Trash2 className="text-zinc-300 w- 5 h-5" strokeWidth={1.5} />
           </button>
         </div>
       </div>

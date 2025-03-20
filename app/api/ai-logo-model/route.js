@@ -4,6 +4,7 @@ import { replicate } from "@/config/replicate-config";
 import { extractJsonFromString } from "@/lib/utils";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
+import { utapi } from "@/config/uploadthings";
 
 export async function POST(req) {
   try {
@@ -46,8 +47,8 @@ export async function POST(req) {
           },
           body: JSON.stringify({
             prompt: extractedJson.prompt,
-            width: 512, // Reduce image width (default is 1024)
-            height: 512, // Reduce image height
+            width: 512,
+            height: 512,
           }),
         });
 
@@ -64,10 +65,7 @@ export async function POST(req) {
 
       // ✅ Extract JSON response
       const data = await response.json();
-
-      // ✅ Get Base64-encoded image from the response
       const base64Image = data.result;
-      // ✅ Convert Base64 to a proper data URL format
       imageWithMime = `data:image/png;base64,${base64Image.image}`;
     } else if (type === "Premium") {
       // Premium AI logo generation logic goes here
@@ -116,18 +114,18 @@ export async function POST(req) {
       throw new Error("Invalid type specified");
     }
 
-    // try {
-    //   await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
-    //     image: imageWithMime,
-    //     title: title,
-    //     desc: desc,
-    //     timestamp: new Date().toISOString(),
-    //   });
+    try {
+      await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
+        image: imageWithMime,
+        title: title,
+        desc: desc,
+        timestamp: new Date().toISOString(),
+      });
 
-    //   console.log("✅ Image successfully updated in firestore");
-    // } catch (error) {
-    //   console.error("Error saving to Firestore:", error.message);
-    // }
+      console.log("✅ Image successfully updated in firestore");
+    } catch (error) {
+      console.error("Error saving to Firestore:", error.message);
+    }
 
     // ✅ Step 6: Return the image URL or base64-encoded image
     return NextResponse.json({ image: imageWithMime });

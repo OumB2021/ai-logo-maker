@@ -51,9 +51,12 @@ export default function Logolist() {
         Find and download all your generated images.
       </p>
       <div className="flex flex-wrap gap-4 justify-center mt-6">
-        {logos.map((logo) => (
-          <SingleLogo logo={logo} key={logo.id} />
-        ))}
+        {logos
+          .slice()
+          .reverse()
+          .map((logo) => (
+            <SingleLogo userDetails={userDetails} logo={logo} key={logo.id} />
+          ))}
       </div>
     </div>
   );
