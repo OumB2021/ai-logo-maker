@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Eye, Download, Trash, Trash2 } from "lucide-react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/config/firebase-config";
+import DeleteDialog from "./delete-dialog";
+import ViewComponent from "./view-component";
 
 function SingleLogo({ userDetails, logo }) {
   const [hovered, setHovered] = useState(false);
@@ -14,15 +16,6 @@ function SingleLogo({ userDetails, logo }) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const handleDelete = async (logo, email) => {
-    try {
-      await deleteDoc(doc(db, "users", email, "logos", logo.id));
-      console.log("Logo deleted successfully");
-    } catch (error) {
-      console.error("Error deleting logo:", error);
-    }
   };
 
   return (
@@ -45,10 +38,7 @@ function SingleLogo({ userDetails, logo }) {
         <div
           className={`absolute inset-0 bg-black/60 flex items-center justify-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
         >
-          {/* View Icon */}
-          <button className=" p-2 rounded-full hover:scale-110 transition-transform">
-            <Eye className="text-zinc-300 w- 5 h-5" strokeWidth={1.5} />
-          </button>
+          <ViewComponent logo={logo} />
 
           {/* Download Icon */}
           <button
@@ -58,12 +48,8 @@ function SingleLogo({ userDetails, logo }) {
             <Download className="text-zinc-300 w- 5 h-5" strokeWidth={1.5} />
           </button>
 
-          <button
-            onClick={() => handleDelete(logo, userDetails.email)}
-            className=" p-2 rounded-full hover:scale-110 transition-transform"
-          >
-            <Trash2 className="text-zinc-300 w- 5 h-5" strokeWidth={1.5} />
-          </button>
+          {/* Delete Icon */}
+          <DeleteDialog logo={logo} userDetails={userDetails} />
         </div>
       </div>
       {/* Logo Info */}
