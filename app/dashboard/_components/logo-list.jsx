@@ -27,7 +27,6 @@ export default function Logolist() {
         ...doc.data(),
       }));
       setLogos(logosData);
-      toast.success("Logo fetched successfully!");
     } catch (error) {
       toast.error("Error fetching logos");
       console.error("Error fetching logos:", error);
@@ -54,7 +53,7 @@ export default function Logolist() {
       <div className="flex flex-wrap gap-4 justify-center mt-6">
         {logos.map((logo) => (
           <SingleLogo logo={logo} key={logo.id} />
-        ))}{" "}
+        ))}
       </div>
     </div>
   );

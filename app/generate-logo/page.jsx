@@ -35,12 +35,12 @@ function page() {
     GenerateAILogo();
   }, [userDetails]);
 
-  // useEffect(() => {
-  //   if (formData?.title && !logoGenerated) {
-  //     GenerateAILogo();
-  //     setLogoGenerated(true);
-  //   }
-  // }, [formData]);
+  useEffect(() => {
+    if (formData?.title && !logoGenerated) {
+      GenerateAILogo();
+      setLogoGenerated(true);
+    }
+  }, [formData]);
 
   const GenerateAILogo = async () => {
     if (!formData || !formData?.title) return;
@@ -73,7 +73,7 @@ function page() {
       });
 
       const data = await response.json();
-
+      console.log("data: " + data.image);
       if (data.image) {
         setImage(data.image);
         toast.success("Image generated successfully");
@@ -83,8 +83,6 @@ function page() {
     } finally {
       setLoading(false);
     }
-
-    // Generate logo image
   };
 
   if (loading) {
@@ -97,11 +95,11 @@ function page() {
   return (
     <div className="flex flex-col items-center mt-32 gap-4 w-full px-10 h-full justify-center">
       <div>
-        {true ? (
+        {image ? (
           <div className="flex flex-col gap-y-10 items-center justify-center h-full p-10 border">
             <h1 className="text-3xl font-bold ">Logo Preview</h1>
             <Image
-              src={"/flower.jpg"}
+              src={image}
               alt="logo image"
               width={300}
               height={300}
@@ -115,10 +113,12 @@ function page() {
                 <Download className="h-4 w-4" />
                 <span>Download</span>
               </Link>
-              <button className="text-zinc-50 py-2 px-4 rounded-md bg-purple-500 flex items-center gap-2 hover:bg-purple-400">
-                <LayoutDashboard className="h-4 w-4" />
-                <span>Download</span>
-              </button>
+              <Link href="/dashboard">
+                <button className="text-zinc-50 py-2 px-4 rounded-md bg-purple-500 flex items-center gap-2 hover:bg-purple-400">
+                  <LayoutDashboard className="h-4 w-4" />
+                  <span>Dashboard</span>
+                </button>
+              </Link>
             </div>
           </div>
         ) : (

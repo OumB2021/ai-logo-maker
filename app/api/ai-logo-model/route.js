@@ -35,7 +35,7 @@ export async function POST(req) {
 
     if (type === "Free") {
       try {
-        const model = "@cf/stabilityai/stable-diffusion-xl-base-1.0";
+        const model = "@cf/black-forest-labs/flux-1-schnell";
         const API_URL = `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFARE_ACCOUNT_ID}/ai/run/${model}`;
 
         response = await fetch(API_URL, {
@@ -62,9 +62,13 @@ export async function POST(req) {
         throw new Error(`Cloudflare API Request Failed: ${error.message}`);
       }
 
-      const data = await response.arrayBuffer();
-      const base64Image = Buffer.from(data).toString("base64");
-      imageWithMime = `data:image/png;base64,${base64Image}`;
+      // ✅ Extract JSON response
+      const data = await response.json();
+
+      // ✅ Get Base64-encoded image from the response
+      const base64Image = data.result;
+      // ✅ Convert Base64 to a proper data URL format
+      imageWithMime = `data:image/png;base64,${base64Image.image}`;
     } else if (type === "Premium") {
       // Premium AI logo generation logic goes here
       try {
@@ -112,18 +116,18 @@ export async function POST(req) {
       throw new Error("Invalid type specified");
     }
 
-    try {
-      await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
-        image: imageWithMime,
-        title: title,
-        desc: desc,
-        timestamp: new Date().toISOString(),
-      });
+    // try {
+    //   await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
+    //     image: imageWithMime,
+    //     title: title,
+    //     desc: desc,
+    //     timestamp: new Date().toISOString(),
+    //   });
 
-      console.log("✅ Image successfully updated in firestore");
-    } catch (error) {
-      console.error("Error saving to Firestore:", error.message);
-    }
+    //   console.log("✅ Image successfully updated in firestore");
+    // } catch (error) {
+    //   console.error("Error saving to Firestore:", error.message);
+    // }
 
     // ✅ Step 6: Return the image URL or base64-encoded image
     return NextResponse.json({ image: imageWithMime });

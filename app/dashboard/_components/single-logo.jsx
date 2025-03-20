@@ -15,9 +15,9 @@ function SingleLogo({ logo }) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-2 text-center">
       <div
-        className="relative group w-[300px] h-[300px] flex flex-col items-center text-center overflow-hidden rounded-md"
+        className="relative group w-[300px] h-[300px] flex flex-col items-center text-center overflow-hidden rounded-md "
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -27,7 +27,7 @@ function SingleLogo({ logo }) {
           alt={logo.title || "Generated Logo"}
           width={300}
           height={300}
-          className="rounded-md object-cover w-full h-full"
+          className="rounded-md object-cover w-full h-full "
         />
 
         {/* Dark Overlay & Icons (Hidden by default) */}
