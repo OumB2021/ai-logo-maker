@@ -18,7 +18,7 @@ const handleDelete = async (logo, email) => {
   try {
     await deleteDoc(doc(db, "users", email, "logos", logo.id));
     toast.success("Logo deleted successfully");
-    window.location.reload();
+    // window.location.reload();
   } catch (error) {
     toast.error("Error deleting logo");
     console.error("Error deleting logo:", error);
@@ -44,6 +44,7 @@ function DeleteDialog({ logo, userDetails }) {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
+            className="bg-red-500 hover:bg-red-600"
             onClick={() => handleDelete(logo, userDetails.email)}
           >
             Continue

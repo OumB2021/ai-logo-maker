@@ -2,11 +2,12 @@
 
 import SingleLogo from "./single-logo";
 import { useContext, useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Images, Loader2 } from "lucide-react";
 import { UserDetailContext } from "@/app/_context/user-detail-context";
 import { db } from "@/config/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function Logolist() {
   const { userDetails, setUserDetails } = useContext(UserDetailContext);
@@ -47,9 +48,19 @@ export default function Logolist() {
   }
   return (
     <div className="flex flex-col items-center justify-center w-full px-14">
-      <p className="border-b w-full text-muted-foreground md:text-left text-center">
-        Find and download all your generated images.
-      </p>
+      <div className="flex flex-col md:flex-row items-center justify-between w-full">
+        <p className="w-full text-muted-foreground md:text-left text-center flex-1">
+          Find and download all your generated images.
+        </p>
+        <Link
+          href="/create"
+          className="text-sm size-fit  text-zinc-50 hover:bg-zinc-600 flex items-center justify-center py-2 px-3 bg-zinc-700 rounded-md gap-2 "
+        >
+          <Images className="h-4 w-4" />
+          <span>Generate New logo</span>
+        </Link>
+      </div>
+
       <div className="flex flex-wrap gap-4 justify-center mt-6">
         {logos
           .slice()
