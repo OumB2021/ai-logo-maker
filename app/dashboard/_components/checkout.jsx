@@ -1,24 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   useStripe,
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import { converToSubCurrency } from "@/lib/utils";
+import { doc, updateDoc } from "firebase/firestore";
+import { UserDetailContext } from "@/app/_context/user-detail-context";
+import { db } from "@/config/firebase-config";
 
-function Checkout({ amount }) {
+function Checkout({ amount, credits }) {
   const stripe = useStripe();
   const elements = useElements();
 
+  const { userDetails } = useContext(UserDetailContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
+  console.log(userDetails);
   useEffect(() => {
     if (amount && amount > 0.5) {
-      fetch("api/create-payment-intent", {
+      fetch("/api/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,15 +55,42 @@ function Checkout({ amount }) {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://www.localhost:3000/payment-sucess?amount=${amount}`,
+        return_url: `http://www.localhost:3000/payment-sucess?amount=${amount}&credits=${credits}&user=${userDetails.email}`,
       },
     });
+
+    if (!error) {
+      console.log("Attempting to update credits...");
+      if (!userDetails) {
+        console.log("User details not available yet.");
+        return;
+      }
+
+      if (!userDetails.email) {
+        console.log("User email is missing.");
+        return;
+      }
+
+      try {
+        const docRef = doc(db, "users", userDetails.email);
+        const userCredits = userDetails.credits || 0;
+
+        console.log(`Updating credits: ${userCredits} + ${credits}`);
+
+        await updateDoc(docRef, {
+          credits: Number(userCredits) + Number(credits),
+        });
+
+        console.log("Credits updated successfully!");
+      } catch (err) {
+        console.error("Error updating credits:", err);
+      }
+    }
 
     if (error) {
       setError(error.message);
       setLoading(false);
       return;
-    } else {
     }
   };
 

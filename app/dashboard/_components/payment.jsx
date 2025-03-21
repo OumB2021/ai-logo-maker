@@ -42,7 +42,7 @@ function AddCredits({ amount }) {
             currency: "usd",
           }}
         >
-          <Checkout amount={plan.price} />
+          <Checkout amount={plan.price} credits={plan.credits} />
         </Elements>
       </DialogContent>
     </Dialog>
