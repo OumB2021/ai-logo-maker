@@ -8,8 +8,9 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
+import { Suspense } from "react";
 
-function page() {
+function Page() {
   const searchParams = useSearchParams();
   const { userDetails, setUserDetails } = useContext(UserDetailContext);
   const [formData, setFormData] = useState({});
@@ -132,4 +133,17 @@ function page() {
     </div>
   );
 }
-export default page;
+
+export default function PageWithSuspense() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center animate-spin text-muted-foreground mt-32 min-h-screen gap-4 w-full px-10">
+          <Loader2 />
+        </div>
+      }
+    >
+      <Page />
+    </Suspense>
+  );
+}

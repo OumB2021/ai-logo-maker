@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import BackPage from "./_components/back-page";
@@ -10,6 +10,7 @@ import ColorStep from "./_components/color-step";
 import DesignStep from "./_components/design-step";
 import IdeaStep from "./_components/idea-step";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import PriceStep from "./_components/price-step";
 
 function CreateLogo() {
@@ -103,4 +104,17 @@ function CreateLogo() {
     </div>
   );
 }
-export default CreateLogo;
+
+export default function PageWithSuspense() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center animate-spin text-muted-foreground mt-32 min-h-screen gap-4 w-full px-10">
+          <Loader2 />
+        </div>
+      }
+    >
+      <CreateLogo />
+    </Suspense>
+  );
+}

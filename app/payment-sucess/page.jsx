@@ -2,20 +2,19 @@
 
 import { db } from "@/config/firebase-config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-function page() {
+function Page() {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
   const credits = searchParams.get("credits");
   const user = searchParams.get("user");
   const payment_intent = searchParams.get("payment_intent");
-  console.log("amount: " + amount + " credits: " + credits + " user: " + user);
   const [creditsUpdated, setCreditsUpdated] = useState(false);
 
   useEffect(() => {
@@ -39,7 +38,6 @@ function page() {
             credits: Number(currentCredits) + Number(credits),
           });
 
-          // Set a flag in localStorage to prevent duplicate updates
           localStorage.setItem(`paymentProcessed_${payment_intent}`, "true");
           setCreditsUpdated(true);
           toast.success("User credits updated successfully!");
@@ -77,4 +75,17 @@ function page() {
     </div>
   );
 }
-export default page;
+
+export default function PageWithSuspense() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center animate-spin text-muted-foreground mt-32 min-h-screen gap-4 w-full px-10">
+          <Loader2 />
+        </div>
+      }
+    >
+      <Page />
+    </Suspense>
+  );
+}
