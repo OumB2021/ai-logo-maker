@@ -59,34 +59,6 @@ function Checkout({ amount, credits }) {
       },
     });
 
-    if (!error) {
-      console.log("Attempting to update credits...");
-      if (!userDetails) {
-        console.log("User details not available yet.");
-        return;
-      }
-
-      if (!userDetails.email) {
-        console.log("User email is missing.");
-        return;
-      }
-
-      try {
-        const docRef = doc(db, "users", userDetails.email);
-        const userCredits = userDetails.credits || 0;
-
-        console.log(`Updating credits: ${userCredits} + ${credits}`);
-
-        await updateDoc(docRef, {
-          credits: Number(userCredits) + Number(credits),
-        });
-
-        console.log("Credits updated successfully!");
-      } catch (err) {
-        console.error("Error updating credits:", err);
-      }
-    }
-
     if (error) {
       setError(error.message);
       setLoading(false);

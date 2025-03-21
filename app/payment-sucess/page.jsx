@@ -64,7 +64,8 @@ function page() {
         has been successfully processed.
       </p>
       <p className="text-base text-muted-foreground">
-        Your credits was added to your account.
+        <span className="font-bold text-black">${credits}</span> credits was
+        added to your account.
       </p>
       <Link
         href="/dashboard"
