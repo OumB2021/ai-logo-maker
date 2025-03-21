@@ -1,5 +1,5 @@
 import { model } from "@/config/gemini-config";
-import { cleanJsonString, extractJsonString } from "@/lib/utils";
+import { extractJsonString } from "@/lib/utils";
 
 export async function POST(req) {
   try {
@@ -29,7 +29,9 @@ export async function POST(req) {
     });
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: "Failed to generate logo ideas" }),
+      JSON.stringify({
+        error: `Failed to generate logo ideas: ${error.message}`,
+      }),
       { status: 500 }
     );
   }

@@ -4,7 +4,6 @@ import { replicate } from "@/config/replicate-config";
 import { extractJsonFromString } from "@/lib/utils";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
-import { utapi } from "@/config/uploadthings";
 
 export async function POST(req) {
   try {
