@@ -1,6 +1,7 @@
 "use client";
 
 import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "@/config/stripe-config";
 
 import {
   Dialog,
@@ -14,6 +15,8 @@ import {
 import { Plus } from "lucide-react";
 import CreditOptions from "./credit-options";
 import { useState } from "react";
+import { converToSubCurrency } from "@/lib/utils";
+import Checkout from "./checkout";
 
 function AddCredits({ amount }) {
   const [plan, setPlan] = useState({});
@@ -31,6 +34,16 @@ function AddCredits({ amount }) {
           You can add more credits to your account by using your credit card.
         </DialogDescription>
         <CreditOptions plan={plan} setPlan={setPlan} />
+        <Elements
+          stripe={stripePromise}
+          options={{
+            mode: "payment",
+            amount: converToSubCurrency(plan.price),
+            currency: "usd",
+          }}
+        >
+          <Checkout amount={plan.price} />
+        </Elements>
       </DialogContent>
     </Dialog>
   );
