@@ -42,9 +42,7 @@ export default function Logolist() {
   }, [userDetails?.email]); //
 
   if (loading) {
-    return (
-      <Loader2 className="w-full flex items-center justify-center text-muted-foreground animate-spin" />
-    );
+    return <LogoListSkeleton />;
   }
   return (
     <div className="flex flex-col items-center justify-center w-full px-14">
@@ -69,6 +67,20 @@ export default function Logolist() {
             <SingleLogo userDetails={userDetails} logo={logo} key={logo.id} />
           ))}
       </div>
+    </div>
+  );
+}
+
+function LogoListSkeleton() {
+  return (
+    <div className="flex flex-wrap gap-4 justify-center mt-6">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="flex flex-col items-center gap-2">
+          <div className="w-[300px] h-[300px] bg-zinc-300 animate-pulse rounded-md" />
+          <div className="w-[200px] h-5 bg-zinc-300 animate-pulse rounded-md" />
+          <div className="w-[150px] h-3 bg-zinc-300 animate-pulse rounded-md" />
+        </div>
+      ))}
     </div>
   );
 }
