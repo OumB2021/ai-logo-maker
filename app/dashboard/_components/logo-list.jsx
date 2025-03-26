@@ -2,7 +2,7 @@
 
 import SingleLogo from "./single-logo";
 import { useContext, useEffect, useState } from "react";
-import { Images, Loader2 } from "lucide-react";
+import { Images } from "lucide-react";
 import { UserDetailContext } from "@/app/_context/user-detail-context";
 import { db } from "@/config/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
