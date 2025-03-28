@@ -35,7 +35,6 @@ export default function HeroSection() {
           {/* Buttons */}
           <Cta />
         </div>
-        <Footer />
       </div>
     </section>
   );

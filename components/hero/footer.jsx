@@ -1,7 +1,14 @@
+"use client";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer if on the homepage ("/")
+  if (pathname === "/") return null;
+
   return (
     <footer className="flex flex-col items-center justify-center gap-2 py-4 text-zinc-600 text-sm">
       {/* Social Icons */}
