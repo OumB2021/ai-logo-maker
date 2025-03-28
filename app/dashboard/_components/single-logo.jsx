@@ -19,7 +19,7 @@ function SingleLogo({ userDetails, logo }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 text-center">
+    <div className="flex flex-col items-center gap-2 text-center ">
       <div
         className="relative group w-[300px] h-[300px] flex flex-col items-center text-center overflow-hidden rounded-md "
         onMouseEnter={() => setHovered(true)}
@@ -31,7 +31,7 @@ function SingleLogo({ userDetails, logo }) {
           alt={logo.title || "Generated Logo"}
           width={300}
           height={300}
-          className="rounded-md object-cover w-full h-full "
+          className="rounded-md object-cover w-full h-full border"
         />
 
         {/* Dark Overlay & Icons (Hidden by default) */}
@@ -43,7 +43,7 @@ function SingleLogo({ userDetails, logo }) {
           {/* Download Icon */}
           <button
             onClick={handleDownload}
-            className=" p-2 rounded-full hover:scale-110 transition-transform"
+            className="p-2 rounded-full hover:scale-110 transition-transform"
           >
             <Download className="text-zinc-300 w- 5 h-5" strokeWidth={1.5} />
           </button>

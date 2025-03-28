@@ -1,6 +1,7 @@
 import { db } from "@/config/firebase-config";
 import { chat } from "@/config/gemini-config";
 import { replicate } from "@/config/replicate-config";
+import { backendClient } from "@/lib/edgestore-server";
 import { extractJsonFromString } from "@/lib/utils";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
@@ -113,6 +114,33 @@ export async function POST(req) {
       throw new Error("Invalid type specified");
     }
 
+    try {
+      // Convert base64 string to a buffer
+      const base64Data = imageWithMime.split(";base64,").pop();
+      if (!base64Data) throw new Error("Invalid base64 image data");
+
+      const imageBuffer = Buffer.from(base64Data, "base64");
+      const imageBlob = new Blob([imageBuffer], { type: "image/png" });
+
+      // Upload the image to EdgeStore
+      const res = await backendClient.publicFiles.upload({
+        file: new File([imageBlob], `${Date.now()}.png`, { type: "image/png" }),
+      });
+
+      if (!res.url) {
+        throw new Error("Failed to upload image to EdgeStore");
+      }
+
+      console.log("✅ Image successfully uploaded to EdgeStore:", res.url);
+    } catch (error) {
+      console.error("❌ EdgeStore Upload Error:", error.message);
+      return NextResponse.json(
+        { error: error.message || "Unexpected error occurred" },
+        { status: 500 }
+      );
+    }
+
+    // ✅ Step 5: Save the image to Firestore
     try {
       await setDoc(doc(db, "users", email, "logos", Date.now().toString()), {
         image: imageWithMime,

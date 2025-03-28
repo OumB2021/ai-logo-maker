@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { UserDetailContext } from "./_context/user-detail-context";
 import Footer from "@/components/hero/footer";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 function Provider({ children }) {
   const { user, isLoaded } = useUser();
@@ -38,11 +39,13 @@ function Provider({ children }) {
 
   return (
     <>
-      <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
-        <NavRender />
-        <div className="min-h-screen">{children}</div>
-        <Footer />
-      </UserDetailContext.Provider>
+      <EdgeStoreProvider>
+        <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
+          <NavRender />
+          <div className="min-h-screen">{children}</div>
+          <Footer />
+        </UserDetailContext.Provider>
+      </EdgeStoreProvider>
     </>
   );
 }

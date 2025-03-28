@@ -29,7 +29,7 @@ function AddCredits({ amount }) {
         </button>
       </DialogTrigger>
       <DialogContent className="bg-zinc-100 max-h-[calc(100vh-4rem)] overflow-y-auto">
-        <DialogTitle>Add more credits</DialogTitle>
+        <DialogTitle>Add credits</DialogTitle>
         <DialogDescription>
           You can add more credits to your account by using your credit card.
         </DialogDescription>

@@ -45,17 +45,17 @@ export default function Logolist() {
     return <LogoListSkeleton />;
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full px-14">
-      <div className="flex flex-col md:flex-row items-center justify-between w-full">
-        <p className="w-full text-muted-foreground md:text-left text-center flex-1">
+    <div className="flex flex-col items-center justify-center w-full px-14 py-4 border rounded-md bg-zinc-50">
+      <div className="flex flex-col items-center gap-4 justify-center w-full">
+        <p className="w-full text-muted-foreground text-center flex-1">
           Find and download all your generated images.
         </p>
         <Link
           href="/create"
-          className="text-sm size-fit  text-zinc-50 hover:bg-zinc-600 flex items-center justify-center py-2 px-3 bg-zinc-700 rounded-md gap-2 "
+          className="text-sm font-medium size-fit border text-zinc-800 hover:bg-zinc-100 flex items-center justify-center py-2 px-3 rounded-md gap-2 "
         >
-          <Images className="h-4 w-4" />
-          <span>Generate New logo</span>
+          <Images className="h-4 w-4" strokeWidth={2} />
+          <span>Generate new logo</span>
         </Link>
       </div>
 

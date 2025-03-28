@@ -14,11 +14,9 @@ function Info() {
     <div className="flex flex-col md:flex-row items-center justify-between px-14 w-full gap-4 py-4 rounded-md">
       {/* left */}
       <div className="flex flex-col gap-2 items-center md:items-start">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl ">
           Hello,{" "}
-          <span className="text-purple-500 capitalize">
-            {userDetails?.name}
-          </span>
+          <span className="font-bold capitalize">{userDetails?.name}</span>
         </h1>
         <div className="flex gap-2 items-center text-zinc-700">
           <Image src="/coin.png" alt="coin" width={40} height={40} />
