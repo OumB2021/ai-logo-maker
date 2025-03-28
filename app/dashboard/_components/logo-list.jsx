@@ -44,6 +44,7 @@ export default function Logolist() {
   if (loading) {
     return <LogoListSkeleton />;
   }
+
   return (
     <div className="flex flex-col items-center justify-center w-full px-14 py-4 border rounded-md bg-zinc-50">
       <div className="flex flex-col items-center gap-4 justify-center w-full">
