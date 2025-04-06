@@ -6,7 +6,7 @@ export const pricingPlans = [
       "Perfect for individuals who want to generate logos with basic design options.",
     features: [
       "Unlimited logo generation",
-      "Longer wait time (up to 10 minutes per request)",
+      "up to 10 minutes per request",
       "Basic design styles",
       "Standard resolution downloads",
       "No commercial usage rights",
@@ -23,7 +23,7 @@ export const pricingPlans = [
       "Ideal for professionals and businesses looking for high-quality and fast logo generation.",
     features: [
       "Unlimited logo generation",
-      "Priority processing (less than 10 seconds per request)",
+      "less than 10 seconds per request",
       "Exclusive premium design styles",
       "High-resolution downloads",
       "Full commercial usage rights",
